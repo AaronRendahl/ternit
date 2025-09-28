@@ -1,15 +1,15 @@
 #' Ternary Plot
 #'
-#' @param data
-#' @param labels
-#' @param facets
-#' @param grid.spacing
-#' @param tick.length
-#' @param tick.label.spacing
-#' @param axis.label.spacing
+#' @param data the data
+#' @param labels axis labels
+#' @param facets facets with data
+#' @param grid.spacing grid spacing
+#' @param tick.length tick length
+#' @param tick.label.spacing tick label spacing
+#' @param axis.label.spacing axis label spacing
 #' @param lims
 #'
-#' @returns
+#' @returns a ternary plot
 #' @export
 ternit <- function(data, labels, facets,
                    grid.spacing = 0.2,
