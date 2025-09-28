@@ -1,17 +1,17 @@
 Package: ternit
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Create Ternary Plots
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
+      "Aaron", "Rendahl",
+      email = "rend0020@umn.edi",
       role = c("aut", "cre")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Description: Create ternary plots with ggplot.
+    Currently adds axes and labels to the plot rather than using ggplot theme.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: 
