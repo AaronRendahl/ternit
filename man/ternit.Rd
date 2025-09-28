@@ -30,7 +30,7 @@ ternit(
 
 \item{axis.label.spacing}{axis label spacing}
 
-\item{lims}{}
+\item{lims}{matrix of limits}
 }
 \value{
 a ternary plot

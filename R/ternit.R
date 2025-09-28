@@ -7,7 +7,7 @@
 #' @param tick.length tick length
 #' @param tick.label.spacing tick label spacing
 #' @param axis.label.spacing axis label spacing
-#' @param lims
+#' @param lims matrix of limits
 #'
 #' @returns a ternary plot
 #' @export
