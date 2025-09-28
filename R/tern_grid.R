@@ -22,6 +22,6 @@ tern_grid <- function(by, lims) {
            b1=pmin(blim[2], 1-at.c-alim[1])) |>
       mutate(a1=1-b1-c1, b2=1-a2-c2)) |>
     select(a1, b1, c1, a2, b2, c2) |>
-    mutate(getxy(a1, b1, c1)) |> rename(x1=x, y1=y) |>
-    mutate(getxy(a2, b2, c2)) |> rename(x2=x, y2=y)
+    mutate(tern_xy(a1, b1, c1)) |> rename(x1=x, y1=y) |>
+    mutate(tern_xy(a2, b2, c2)) |> rename(x2=x, y2=y)
 }

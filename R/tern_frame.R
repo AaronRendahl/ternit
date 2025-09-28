@@ -17,6 +17,6 @@ tern_frame <- function(lims) {
   colnames(foo) <- letters[1:3]
   as_tibble(foo) |>
     mutate(across(everything(), \(x) round(x, 10))) |>
-    mutate(getxy(a, b, c)) |>
+    mutate(tern_xy(a, b, c)) |>
     unique()
 }

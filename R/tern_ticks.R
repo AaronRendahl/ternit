@@ -13,21 +13,21 @@ tern_ticks <- function(grid.spacing, lims, tick.length, tick.label.spacing) {
 
   # c ticks on a axis
   ax1 <- tibble(c=at.c, b=pmin(blim[2], 1 - at.c - alim[1])) |> mutate(a = 1 - b - c) |>
-    mutate(getxy(a, b, c)) |> rename(x1 = x, y1 = y) |>
-    mutate(getxy(a - tkl, b + tkl, c)) |> rename(x2 = x, y2 = y) |>
-    mutate(getxy(a - tkx, b + tkx, c)) |>
+    mutate(tern_xy(a, b, c)) |> rename(x1 = x, y1 = y) |>
+    mutate(tern_xy(a - tkl, b + tkl, c)) |> rename(x2 = x, y2 = y) |>
+    mutate(tern_xy(a - tkx, b + tkx, c)) |>
     mutate(txt = c)
   # a ticks on baxis
   ax2 <- tibble(a=at.a, c=pmin(clim[2], 1 - at.a - blim[1])) |> mutate(b = 1 - a - c) |>
-    mutate(getxy(a, b, c)) |> rename(x1 = x, y1 = y) |>
-    mutate(getxy(a, b - tkl, c + tkl)) |> rename(x2 = x, y2 = y) |>
-    mutate(getxy(a, b - tkx, c + tkx)) |>
+    mutate(tern_xy(a, b, c)) |> rename(x1 = x, y1 = y) |>
+    mutate(tern_xy(a, b - tkl, c + tkl)) |> rename(x2 = x, y2 = y) |>
+    mutate(tern_xy(a, b - tkx, c + tkx)) |>
     mutate(txt = a)
   # b ticks on c axis
   ax3 <- tibble(b=at.b, a=pmin(alim[2], 1 - at.b - clim[1])) |> mutate(c = 1 - b - a) |>
-    mutate(getxy(a, b, c)) |> rename(x1 = x, y1 = y) |>
-    mutate(getxy(a + tkl, b, c - tkl)) |> rename(x2 = x, y2 = y) |>
-    mutate(getxy(a + tkx, b, c - tkx)) |>
+    mutate(tern_xy(a, b, c)) |> rename(x1 = x, y1 = y) |>
+    mutate(tern_xy(a + tkl, b, c - tkl)) |> rename(x2 = x, y2 = y) |>
+    mutate(tern_xy(a + tkx, b, c - tkx)) |>
     mutate(txt = b)
   bind_rows(ax1, ax2, ax3)
 }
