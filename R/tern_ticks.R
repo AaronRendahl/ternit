@@ -12,22 +12,25 @@ tern_ticks <- function(grid.spacing, lims, tick.length, tick.label.spacing) {
   at.c <- at[at >= clim[1] - 0.001 & at <= clim[2] + 0.001]
 
   # c ticks on a axis
-  ax1 <- tibble(c=at.c, b=pmin(blim[2], 1 - at.c - alim[1])) |> mutate(a = 1 - b - c) |>
-    mutate(tern_xy(a, b, c)) |> rename(x1 = x, y1 = y) |>
-    mutate(tern_xy(a - tkl, b + tkl, c)) |> rename(x2 = x, y2 = y) |>
-    mutate(tern_xy(a - tkx, b + tkx, c)) |>
+  ax1 <- tibble(c=at.c, b=pmin(blim[2], 1 - at.c - alim[1])) |>
+    mutate(a = 1 - .data$b - .data$c) |>
+    mutate(tern_xy(.data$a, .data$b, .data$c)) |> rename(x1 = 'x', y1 = 'y') |>
+    mutate(tern_xy(.data$a - tkl, .data$b + tkl, .data$c)) |> rename(x2 = 'x', y2 = 'y') |>
+    mutate(tern_xy(.data$a - tkx, .data$b + tkx, .data$c)) |>
     mutate(txt = c)
   # a ticks on baxis
-  ax2 <- tibble(a=at.a, c=pmin(clim[2], 1 - at.a - blim[1])) |> mutate(b = 1 - a - c) |>
-    mutate(tern_xy(a, b, c)) |> rename(x1 = x, y1 = y) |>
-    mutate(tern_xy(a, b - tkl, c + tkl)) |> rename(x2 = x, y2 = y) |>
-    mutate(tern_xy(a, b - tkx, c + tkx)) |>
-    mutate(txt = a)
+  ax2 <- tibble(a=at.a, c=pmin(clim[2], 1 - at.a - blim[1])) |>
+    mutate(b = 1 - .data$a - .data$c) |>
+    mutate(tern_xy(.data$a, .data$b, .data$c)) |> rename(x1 = 'x', y1 = 'y') |>
+    mutate(tern_xy(.data$a, .data$b - tkl, .data$c + tkl)) |> rename(x2 = 'x', y2 = 'y') |>
+    mutate(tern_xy(.data$a, .data$b - tkx, .data$c + tkx)) |>
+    mutate(txt = .data$a)
   # b ticks on c axis
-  ax3 <- tibble(b=at.b, a=pmin(alim[2], 1 - at.b - clim[1])) |> mutate(c = 1 - b - a) |>
-    mutate(tern_xy(a, b, c)) |> rename(x1 = x, y1 = y) |>
-    mutate(tern_xy(a + tkl, b, c - tkl)) |> rename(x2 = x, y2 = y) |>
-    mutate(tern_xy(a + tkx, b, c - tkx)) |>
-    mutate(txt = b)
+  ax3 <- tibble(b=at.b, a=pmin(alim[2], 1 - at.b - clim[1])) |>
+    mutate(c = 1 - .data$b - .data$a) |>
+    mutate(tern_xy(.data$a, .data$b, .data$c)) |> rename(x1 = 'x', y1 = 'y') |>
+    mutate(tern_xy(.data$a + tkl, .data$b, .data$c - tkl)) |> rename(x2 = 'x', y2 = 'y') |>
+    mutate(tern_xy(.data$a + tkx, .data$b, .data$c - tkx)) |>
+    mutate(txt = .data$b)
   bind_rows(ax1, ax2, ax3)
 }

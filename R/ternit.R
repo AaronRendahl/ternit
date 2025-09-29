@@ -10,6 +10,29 @@
 #' @param lims matrix of limits
 #'
 #' @returns a ternary plot
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_segment
+#' @importFrom ggplot2 geom_polygon
+#' @importFrom ggplot2 geom_text
+#' @importFrom ggplot2 coord_equal
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 theme_void
+#' @importFrom ggplot2 element_text
+#' @importFrom ggplot2 element_rect
+#' @importFrom ggplot2 margin
+#' @importFrom ggplot2 .pt
+#' @importFrom dplyr cross_join
+#' @importFrom dplyr mutate
+#' @importFrom dplyr rename
+#' @importFrom dplyr select
+#' @importFrom dplyr filter
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr across
+#' @importFrom dplyr summarize
+#' @importFrom tibble tibble
+#' @importFrom tibble as_tibble
+#' @importFrom rlang .data
 #' @export
 ternit <- function(data, labels, facets,
                    grid.spacing = 0.2,
@@ -34,17 +57,17 @@ ternit <- function(data, labels, facets,
     .grid <- .grid |> cross_join(facets)
   }
 
-  ggplot(data) + aes(x, y) + coord_equal() +
+  ggplot(data) + aes(x=.data$x, y=.data$y) + coord_equal() +
     # grid
-    geom_segment(aes(x=x1, y=y1, xend=x2, yend=y2), data=.grid, inherit.aes = FALSE, linewidth=0.25, color="gray80") +
+    geom_segment(aes(x=.data$x1, y=.data$y1, xend=.data$x2, yend=.data$y2), data=.grid, inherit.aes = FALSE, linewidth=0.25, color="gray80") +
     # ticks
-    geom_segment(aes(x=x1, y=y1, xend=x2, yend=y2), data=.ticks, inherit.aes = FALSE, linewidth=0.25) +
+    geom_segment(aes(x=.data$x1, y=.data$y1, xend=.data$x2, yend=.data$y2), data=.ticks, inherit.aes = FALSE, linewidth=0.25) +
     # frame
-    geom_polygon(aes(x, y), data=.frame, inherit.aes = FALSE, color="black", fill=NA) +
+    geom_polygon(aes(x=.data$x, y=.data$y), data=.frame, inherit.aes = FALSE, color="black", fill=NA) +
     # tick labels
-    geom_text(aes(x=x, y=y, label=txt), data=.ticks, inherit.aes = FALSE, size=6, size.unit="pt") +
+    geom_text(aes(x=.data$x, y=.data$y, label=.data$txt), data=.ticks, inherit.aes = FALSE, size=6, size.unit="pt") +
     # axis labels
-    geom_text(aes(x=x, y=y, label=txt), data=.labels, inherit.aes = FALSE, size=8/.pt) +
+    geom_text(aes(x=.data$x, y=.data$y, label=.data$txt), data=.labels, inherit.aes = FALSE, size=8/.pt) +
     theme_void() +
     theme(
       strip.text.x = element_text(margin = margin(3, 0, 3, 0)),

@@ -12,16 +12,16 @@ tern_grid <- function(by, lims) {
     tibble(a1=at.a, a2=at.a,
            b2=pmin(blim[2], 1-at.a-clim[1]),
            c1=pmin(clim[2], 1-at.a-blim[1])) |>
-      mutate(b1=1-a1-c1, c2=1-a2-b2),
+      mutate(b1=1-.data$a1-.data$c1, c2=1-.data$a2-.data$b2),
     tibble(b1=at.b, b2=at.b,
            c2=pmin(clim[2], 1-at.b-alim[1]),
            a1=pmin(alim[2], 1-at.b-clim[1])) |>
-      mutate(c1=1-a1-b1, a2=1-b2-c2),
+      mutate(c1=1-.data$a1-.data$b1, a2=1-.data$b2-.data$c2),
     tibble(c1=at.c, c2=at.c,
            a2=pmin(alim[2], 1-at.c-blim[1]),
            b1=pmin(blim[2], 1-at.c-alim[1])) |>
-      mutate(a1=1-b1-c1, b2=1-a2-c2)) |>
-    select(a1, b1, c1, a2, b2, c2) |>
-    mutate(tern_xy(a1, b1, c1)) |> rename(x1=x, y1=y) |>
-    mutate(tern_xy(a2, b2, c2)) |> rename(x2=x, y2=y)
+      mutate(a1=1-.data$b1-.data$c1, b2=1-.data$a2-.data$c2)) |>
+    select('a1', 'b1', 'c1', 'a2', 'b2', 'c2') |>
+    mutate(tern_xy(.data$a1, .data$b1, .data$c1)) |> rename(x1='x', y1='y') |>
+    mutate(tern_xy(.data$a2, .data$b2, .data$c2)) |> rename(x2='x', y2='y')
 }
