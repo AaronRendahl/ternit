@@ -11,7 +11,7 @@ Authors@R: c(
   )
 Description: Create ternary plots with ggplot.
     Currently adds axes and labels to the plot rather than using ggplot theme.
-License: MIT + file LICENSE
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Imports:
