@@ -33,6 +33,14 @@
 #' @importFrom tibble tibble
 #' @importFrom tibble as_tibble
 #' @importFrom rlang .data
+#' @examples
+#' datxy <- ternex |> mutate(tern_xy(C, B, A))
+#' ternit(datxy,
+#'        labs = c("cc", "bb", "aa"),
+#'        lims = rbind(c(0,0.5),c(0,0.6),c(0.3,1)),
+#'        grid.spacing=0.1, tick.length=0.02) +
+#'   aes(fill=Quad) +
+#'   geom_point(pch=21)
 #' @export
 ternit <- function(data, labels, facets,
                    grid.spacing = 0.2,
