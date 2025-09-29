@@ -8,8 +8,18 @@ library(tidyverse)
 conflicts_prefer(dplyr::filter, dplyr::lag, dplyr::summarize)
 
 
-datxy <- ternex |> mutate(getxy(C, B, A))
-labs <- c("cc", "bb", "aa")
+
+datxy <- ternex |> mutate(tern_xy(C, B, A))
+ternit(datxy,
+       labs = c("cc", "bb", "aa"),
+       lims = rbind(c(0,0.5),c(0,0.6),c(0.3,1)),
+       grid.spacing=0.1, tick.length=0.02) +
+  aes(fill=Quad) +
+  geom_point(pch=21) +
+  #scale_fill_discrete(name=NULL) +
+  scale_fill_brewer(palette="RdYlBu", name=NULL)
+
+
 facets <- distinct(ternex, Trio, Quad)
 
 #labs <- letters[1:3]
