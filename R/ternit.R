@@ -46,7 +46,8 @@ ternit <- function(data, labels, facets,
                    grid.spacing = 0.2,
                    tick.length = 0.03,
                    tick.label.spacing = tick.length * 2,
-                   axis.label.spacing = tick.length * 4,
+                   axis.label.spacing = tick.length * 5,
+                   axis.label.location = 0.9,
                    lims) {
 
   if(missing(lims)) {
@@ -54,15 +55,17 @@ ternit <- function(data, labels, facets,
   }
 
   .frame <- tern_frame(lims)
-  .labels <- tern_labels(.frame, labels, axis.label.spacing)
+  .labels <- tern_labels(.frame, labels, axis.label.spacing, axis.label.location=axis.label.location)
   .ticks <- tern_ticks(grid.spacing, lims, tick.length, tick.label.spacing)
   .grid <- tern_grid(grid.spacing, lims)
+  .arrows <- tern_arrows(.frame, labels, axis.label.spacing, axis.label.location=axis.label.location)
 
   if(!missing(facets)) {
     .frame <- .frame |> cross_join(facets)
     .labels <- .labels |> cross_join(facets)
     .ticks <- .ticks |> cross_join(facets)
     .grid <- .grid |> cross_join(facets)
+    .arrows <- .arrows |> cross_join(facets)
   }
 
   ggplot(data) + aes(x=.data$x, y=.data$y) + coord_equal() +
@@ -75,7 +78,13 @@ ternit <- function(data, labels, facets,
     # tick labels
     geom_text(aes(x=.data$x, y=.data$y, label=.data$txt), data=.ticks, inherit.aes = FALSE, size=6, size.unit="pt") +
     # axis labels
-    geom_text(aes(x=.data$x, y=.data$y, label=.data$txt), data=.labels, inherit.aes = FALSE, size=8/.pt) +
+    geom_text(aes(x=.data$x, y=.data$y, label=.data$txt), data=.labels, inherit.aes = FALSE, size=9/.pt) +
+    # axis arrows
+    geom_segment(aes(x=.data$x1, y=.data$y1, xend=.data$x2, yend=.data$y2),
+                 linewidth=0.25, color="gray50",
+                 arrow=arrow(length=unit(4, "pt")),
+                 data=.arrows, inherit.aes = FALSE) +
+
     theme_void() +
     theme(
       strip.text.x = element_text(margin = margin(3, 0, 3, 0)),
